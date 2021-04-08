@@ -1,7 +1,10 @@
 package com.github.PopovDmitry.nstu.webcw.controller;
 
+import com.github.PopovDmitry.nstu.webcw.model.Article;
+import com.github.PopovDmitry.nstu.webcw.service.ArticleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +13,13 @@ import org.springframework.web.bind.annotation.*;
 public class ArticleController {
 
     private final Logger logger = LoggerFactory.getLogger(ArticleController.class);
+
+    private final ArticleService articleService;
+
+    @Autowired
+    public ArticleController(ArticleService articleService) {
+        this.articleService = articleService;
+    }
 
     @GetMapping
     public String getNews() {
@@ -24,9 +34,10 @@ public class ArticleController {
     }
 
     @PostMapping()
-    public String addArticle() {
+    public String addArticle(@RequestBody Article article) {
         logger.debug("addArticle");
-        return "";
+        articleService.saveArticle(article);
+        return "redirect:/news";
     }
 
     @DeleteMapping("/{id}")

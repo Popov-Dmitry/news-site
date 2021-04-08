@@ -1,13 +1,16 @@
 package com.github.PopovDmitry.nstu.webcw.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 
+@Entity
 @Table(name = "articles")
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class Article {
