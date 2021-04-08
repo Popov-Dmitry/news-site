@@ -4,17 +4,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
 @NoArgsConstructor
 @Getter
 @Setter
-public class Article {
+public class User {
 
     private long id;
-    private User author;
-    private String title;
-    private String content;
-    private Date timestamp;
+    private String firstName;
+    private String secondName;
+    private Role role;
+    private Status status;
 
 }
