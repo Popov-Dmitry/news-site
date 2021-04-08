@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "articles")
@@ -23,9 +24,11 @@ public class Article {
     @JoinColumn(name = "user_id")
     private User author;
 
+    @NotEmpty(message = "Название статьи не может быть пустым")
     @Column(name = "title")
     private String title;
 
+    @NotEmpty(message = "Содержание статьи не может быть пустым")
     @Column(name = "content")
     private String content;
 

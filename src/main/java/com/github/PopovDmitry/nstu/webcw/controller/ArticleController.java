@@ -6,7 +6,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/news")
@@ -34,8 +38,13 @@ public class ArticleController {
     }
 
     @PostMapping()
-    public String addArticle(@RequestBody Article article) {
+    public String addArticle(@ModelAttribute("article") @Valid Article article, BindingResult bindingResult) {
         logger.debug("addArticle");
+        if(bindingResult.hasErrors()) {
+            logger.debug("Article has errors");
+            return "views/newArticle";
+        }
+
         articleService.saveArticle(article);
         return "redirect:/news";
     }
@@ -47,8 +56,9 @@ public class ArticleController {
     }
 
     @GetMapping("/new")
-    public String newArticle() {
+    public String newArticle(Model model) {
         logger.debug("newArticle");
+        model.addAttribute("article", new Article());
         return "views/newArticle";
     }
 
