@@ -12,6 +12,7 @@ public class User {
     private long id;
     private String firstName;
     private String secondName;
+    private String email;
     private Role role;
     private Status status;
 
