@@ -9,3 +9,8 @@
 #articleTitle {
     font-weight: bold;
 }
+
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
