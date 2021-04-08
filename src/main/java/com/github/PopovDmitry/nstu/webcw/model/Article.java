@@ -1,5 +1,8 @@
 package com.github.PopovDmitry.nstu.webcw.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +25,8 @@ public class Article {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    //@JsonBackReference
+    @JsonManagedReference
     private User author;
 
     @NotEmpty(message = "Название статьи не может быть пустым")
