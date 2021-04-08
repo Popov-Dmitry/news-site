@@ -1,0 +1,7 @@
+.bg-light {
+    transition: 200ms linear;
+}
+
+.bg-light:hover {
+    background-color: #f5f5f5 !important;
+}
