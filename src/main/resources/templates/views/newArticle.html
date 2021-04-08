@@ -58,13 +58,13 @@
         <div class="form-group">
             <label for="articleTitle">Название статьи</label>
             <input type="text" class="form-control" id="articleTitle" th:field="*{title}" placeholder="Название статьи">
-            <div style="color:red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Name error</div>
+            <div style="color:red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
         </div>
         <br>
         <div class="form-group">
             <label for="articleContent">Содержание статьи</label>
             <textarea class="form-control" id="articleContent" th:field="*{content}" rows="25"></textarea>
-            <div style="color:red" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">Name error</div>
+            <div style="color:red" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
         </div>
         <br>
 <!--        <button onclick="sendJSON('http://localhost:8080/news')" class="btn btn-primary">Написать</button>-->
