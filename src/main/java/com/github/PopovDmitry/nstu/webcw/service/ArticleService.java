@@ -4,6 +4,8 @@ import com.github.PopovDmitry.nstu.webcw.model.Article;
 import com.github.PopovDmitry.nstu.webcw.model.User;
 import com.github.PopovDmitry.nstu.webcw.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -35,6 +37,15 @@ public class ArticleService {
 
     public List<Article> getAllArticles() {
         return articleRepository.findAll();
+    }
+
+    public List<Article> getArticlesLimit(int offset, int limit) {
+        Pageable pageable = PageRequest.of(offset / limit, limit);
+        return articleRepository.findAll(pageable).toList();
+    }
+
+    public Long getArticlesCount() {
+        return articleRepository.count();
     }
 
     public void updateArticle(Article article) {
