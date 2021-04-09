@@ -21,27 +21,32 @@ public class ArticleController {
     private final ArticleService articleService;
 
     @Autowired
-    public ArticleController(ArticleService articleService) {
-        this.articleService = articleService;
-    }
+    public ArticleController(ArticleService articleService) { this.articleService = articleService; }
 
     @GetMapping
     public String getNews() {
-        logger.debug("getNews");
+        logger.info("getNews");
         return "views/index";
     }
 
     @GetMapping("/{id}")
-    public String getArticle(@PathVariable long id) {
-        logger.debug("getArticle , {}", id);
-        return "";
+    public String getArticle(@PathVariable long id, Model model) {
+        logger.info("getArticle {}", id);
+
+        if(articleService.getArticle(id).isEmpty()) {
+            logger.info("Article with id {} is not found", id);
+            return "redirect:/news";
+        }
+        model.addAttribute("article", articleService.getArticle(id).get());
+        model.addAttribute("pageTitle", articleService.getArticle(id).get().getTitle());
+        return "views/showArticle";
     }
 
     @PostMapping()
     public String addArticle(@ModelAttribute("article") @Valid Article article, BindingResult bindingResult) {
-        logger.debug("addArticle");
+        logger.info("addArticle");
         if(bindingResult.hasErrors()) {
-            logger.debug("Article has errors");
+            logger.info("Article has errors");
             return "views/newArticle";
         }
 
@@ -51,13 +56,13 @@ public class ArticleController {
 
     @DeleteMapping("/{id}")
     public String deleteArticle(@PathVariable long id) {
-        logger.debug("deleteArticle , {}", id);
+        logger.info("deleteArticle {}", id);
         return "";
     }
 
     @GetMapping("/new")
     public String newArticle(Model model) {
-        logger.debug("newArticle");
+        logger.info("newArticle");
         model.addAttribute("article", new Article());
         return "views/newArticle";
     }

@@ -41,4 +41,8 @@ public class User {
     @JsonBackReference
     private List<Article> articles = new ArrayList<>();
 
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
 }
