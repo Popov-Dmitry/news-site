@@ -1,7 +1,6 @@
 package com.github.PopovDmitry.nstu.webcw.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,7 +38,6 @@ public class User {
     private Status status;
 
     @OneToMany(mappedBy = "author")
-    //@JsonManagedReference
     @JsonBackReference
     private List<Article> articles = new ArrayList<>();
 

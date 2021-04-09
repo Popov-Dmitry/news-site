@@ -6,7 +6,7 @@ import com.github.PopovDmitry.nstu.webcw.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +21,7 @@ public class ArticleService {
     }
 
     public void saveArticle(Article article) {
-        article.setTimestamp(new Date().getTime());
+        article.setTimestamp(new Date(new java.util.Date().getTime()));
         articleRepository.save(article);
     }
 

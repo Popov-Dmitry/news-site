@@ -1,7 +1,5 @@
 package com.github.PopovDmitry.nstu.webcw.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.sql.Date;
 
 @Entity
 @Table(name = "articles")
@@ -25,7 +24,6 @@ public class Article {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    //@JsonBackReference
     @JsonManagedReference
     private User author;
 
@@ -38,6 +36,6 @@ public class Article {
     private String content;
 
     @Column(name = "timestamp")
-    private long timestamp;
+    private Date timestamp;
 
 }
