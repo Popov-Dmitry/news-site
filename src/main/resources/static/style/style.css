@@ -17,6 +17,12 @@
 
 .card {
     margin: 10px;
+
+}
+
+.card-body {
+    overflow-wrap: break-word;
+    white-space: pre-line;
 }
 
 .article-header {
@@ -26,9 +32,15 @@
     overflow-wrap: break-word;
 }
 
+.article-author {
+    margin-left: 5%;
+    text-decoration: none;
+}
+
 .article-text {
     font-size: 18px;
     line-height: 1.56;
     font-family: "Segoe UI",Arial,sans-serif;
     overflow-wrap: break-word;
+    white-space: pre-line;
 }

@@ -24,13 +24,18 @@ function scrollArticles() {
         $.getJSON(url + '?offset=' + offset + '&limit=' + limit, function(data, key) {
 
         $.each(data, function(key, data) {
+            let previewContent = data.content.trim();
+            let previewLength = 400;
+            if(previewContent.length > previewLength) {
+                previewContent = previewContent.substring(0, previewLength) + '...';
+            }
             $('<article class="card">\
                     <h5 class="card-header">' + data.title + '</h5>\
                     <div class="card-body">\
-                        <p class="card-text">' + data.content + '</p>\
+                        <p class="card-text">' + previewContent + '</p>\
                         <a href="http://localhost:8080/news/' + data.id + '" class="btn btn-primary">Читать далее</a>\
                     </div>\
-                    <div class="card-footer text-center">' + 'Имя ' + 'Фамилия ' + ' &nbsp;&nbsp; | &nbsp;&nbsp; ' + data.timestamp + '</div>\
+                    <div class="card-footer text-center">' + data.author.fullName + ' &nbsp;&nbsp; | &nbsp;&nbsp; ' + data.timestamp + '</div>\
                 </article>')
                 .appendTo('#articles-container')
         });
