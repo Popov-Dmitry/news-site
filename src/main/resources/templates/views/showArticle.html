@@ -63,7 +63,7 @@
         </header>
         <h1 th:text="${article.getTitle()}"></h1>
         <br>
-        <p class="article-text" th:text="${article.getContent()}"></p>
+        <div class="article-text" th:block th:utext="${article.getContent()}"></div>
     </article>
 </div>
 

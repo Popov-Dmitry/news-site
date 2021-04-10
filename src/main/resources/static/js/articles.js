@@ -32,7 +32,7 @@ function scrollArticles() {
             $('<article class="card">\
                     <h5 class="card-header">' + data.title + '</h5>\
                     <div class="card-body">\
-                        <p class="card-text">' + previewContent + '</p>\
+                        <div class="card-text">' + previewContent + '</div>\
                         <a href="http://localhost:8080/news/' + data.id + '" class="btn btn-primary">Читать далее</a>\
                     </div>\
                     <div class="card-footer text-center">' + data.author.fullName + ' &nbsp;&nbsp; | &nbsp;&nbsp; ' + data.timestamp + '</div>\

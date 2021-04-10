@@ -3,6 +3,7 @@ package com.github.PopovDmitry.nstu.webcw.service;
 import com.github.PopovDmitry.nstu.webcw.model.Article;
 import com.github.PopovDmitry.nstu.webcw.model.User;
 import com.github.PopovDmitry.nstu.webcw.repository.ArticleRepository;
+import com.github.PopovDmitry.nstu.webcw.utils.BBParserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,13 +18,15 @@ public class ArticleService {
 
     private final ArticleRepository articleRepository;
 
+    @Autowired private UserService userService; // FIXME: 11.04.2021
+
     @Autowired
-    public ArticleService(ArticleRepository articleRepository) {
-        this.articleRepository = articleRepository;
-    }
+    public ArticleService(ArticleRepository articleRepository) { this.articleRepository = articleRepository; }
 
     public void saveArticle(Article article) {
         article.setTimestamp(new Date(new java.util.Date().getTime()));
+        article.setContent(BBParserUtil.parse(article.getContent()));
+        article.setAuthor(userService.getUser(1).get()); // FIXME: 11.04.2021 
         articleRepository.save(article);
     }
 
