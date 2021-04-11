@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Service
 public class ArticleService {
@@ -30,9 +31,7 @@ public class ArticleService {
         articleRepository.save(article);
     }
 
-    public Optional<Article> getArticle(long id) {
-        return articleRepository.findById(id);
-    }
+    public Optional<Article> getArticle(long id) { return articleRepository.findById(id); }
 
     public Optional<Article> getArticle(User user) {
         return articleRepository.findByAuthor(user);
@@ -49,7 +48,11 @@ public class ArticleService {
 
     public Long getArticlesCount() { return articleRepository.count(); }
 
-    public Optional<List<Article>> searchArticles(String query) { return articleRepository.findAllByContentContaining(query); }
+    public Optional<List<Article>> searchArticles(String query) {
+        return Optional.ofNullable(Stream.concat(
+                articleRepository.findAllByTitleContainingIgnoreCase(query).get().parallelStream(),
+                articleRepository.findAllByContentContainingIgnoreCase(query).get().parallelStream()).toList());
+    }
 
     public void updateArticle(Article article) {
         articleRepository.save(article);
