@@ -26,7 +26,7 @@ public class ArticleService {
     public void saveArticle(Article article) {
         article.setTimestamp(new Date(new java.util.Date().getTime()));
         article.setContent(BBParserUtil.parse(article.getContent()));
-        article.setAuthor(userService.getUser(1).get()); // FIXME: 11.04.2021 
+        article.setAuthor(userService.getUser(1).get()); // FIXME: 11.04.2021
         articleRepository.save(article);
     }
 
@@ -47,9 +47,9 @@ public class ArticleService {
         return articleRepository.findAll(pageable).toList();
     }
 
-    public Long getArticlesCount() {
-        return articleRepository.count();
-    }
+    public Long getArticlesCount() { return articleRepository.count(); }
+
+    public Optional<List<Article>> searchArticles(String query) { return articleRepository.findAllByContentContaining(query); }
 
     public void updateArticle(Article article) {
         articleRepository.save(article);

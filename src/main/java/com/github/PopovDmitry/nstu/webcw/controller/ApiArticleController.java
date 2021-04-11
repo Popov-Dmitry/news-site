@@ -29,7 +29,6 @@ public class ApiArticleController {
     }
 
     @GetMapping("/count")
-    public ResponseEntity<Long> getArticlesCount() {
-        return ResponseEntity.ok(articleService.getArticlesCount());
-    }
+    public ResponseEntity<Long> getArticlesCount() { return ResponseEntity.ok(articleService.getArticlesCount()); }
+
 }
