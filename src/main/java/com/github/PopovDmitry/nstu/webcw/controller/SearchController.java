@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -20,19 +21,17 @@ public class SearchController {
     private final ArticleService articleService;
 
     @Autowired
-    public SearchController(ArticleService articleService) {
-        this.articleService = articleService;
-    }
+    public SearchController(ArticleService articleService) { this.articleService = articleService; }
 
     @GetMapping("/search/")
-    public String searchArticles(@RequestParam("query") String query) {
+    public String searchArticles(@RequestParam("query") String query, Model model) {
         Optional<List<Article>> articles = articleService.searchArticles(query);
-        if(articles.isPresent()) {
-            for (int i = 0; i < articles.get().size(); i++) {
-                System.out.println(articles.get().get(i).getTitle());
-            }
-        }
-        return "";
+
+        articles.ifPresent(articleList -> model.addAttribute("articles", articleList));
+
+        model.addAttribute("pageTitle", "Результаты поиска по запросу \"" + query + "\"");
+
+        return "views/searchingResults";
     }
 
 }
