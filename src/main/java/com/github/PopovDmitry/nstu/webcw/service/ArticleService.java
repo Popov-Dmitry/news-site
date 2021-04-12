@@ -10,8 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Stream;
 
 @Service
@@ -49,9 +48,20 @@ public class ArticleService {
     public Long getArticlesCount() { return articleRepository.count(); }
 
     public Optional<List<Article>> searchArticles(String query) {
-        return Optional.ofNullable(Stream.concat(
-                articleRepository.findAllByTitleContainingIgnoreCase(query).get().parallelStream(),
-                articleRepository.findAllByContentContainingIgnoreCase(query).get().parallelStream()).toList());
+
+        String[] words = query.split(" ");
+        List<Article> wordsResponseList = new ArrayList<>();
+        for(String word : words) {
+            articleRepository.findAllByContentContainingIgnoreCase(word).ifPresent(wordsResponseList::addAll);
+        }
+
+        return Optional.ofNullable(Stream.of(
+                articleRepository.findAllByTitleContainingIgnoreCase(query).get(),
+                articleRepository.findAllByContentContainingIgnoreCase(query).get(),
+                wordsResponseList)
+                .flatMap(Collection::stream)
+                .distinct()
+                .toList());
     }
 
     public void updateArticle(Article article) {
