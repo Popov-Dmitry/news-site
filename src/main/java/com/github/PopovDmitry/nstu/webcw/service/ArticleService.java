@@ -52,6 +52,9 @@ public class ArticleService {
         String[] words = query.split(" ");
         List<Article> wordsResponseList = new ArrayList<>();
         for(String word : words) {
+            articleRepository.findAllByTitleContainingIgnoreCase(word).ifPresent(wordsResponseList::addAll);
+        }
+        for(String word : words) {
             articleRepository.findAllByContentContainingIgnoreCase(word).ifPresent(wordsResponseList::addAll);
         }
 

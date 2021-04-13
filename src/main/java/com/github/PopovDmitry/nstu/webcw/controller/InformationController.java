@@ -10,4 +10,9 @@ public class InformationController {
     public String getContacts() {
         return "views/contacts";
     }
+
+    @GetMapping("/help/bb_codes")
+    public String getBBHelp() {
+        return "views/bbCodesHelp";
+    }
 }

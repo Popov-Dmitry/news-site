@@ -66,9 +66,10 @@
             <div style="color:red" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
         </div>
         <br>
-<!--        <button onclick="sendJSON('http://localhost:8080/news')" class="btn btn-primary">Написать</button>-->
         <button type="submit" class="btn btn-primary">Написать</button>
+        <span><a href="http://localhost:8080/help/bb_codes" style="float: right">Справка по bb-кодам</a></span>
     </form>
+
 </div>
 
 </body>

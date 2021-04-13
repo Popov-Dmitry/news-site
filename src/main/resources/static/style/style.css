@@ -44,3 +44,15 @@
     overflow-wrap: break-word;
     white-space: pre-line;
 }
+
+.bb-codes-help {
+    font-size: 18px;
+}
+
+#bold,
+#italic,
+#underline,
+#center,
+#multiple {
+    resize: none;
+}
