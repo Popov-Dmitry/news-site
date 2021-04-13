@@ -1,4 +1,4 @@
-package com.github.PopovDmitry.nstu.webcw.controller;
+package com.github.PopovDmitry.nstu.webcw.controller.rest;
 
 import com.github.PopovDmitry.nstu.webcw.model.Article;
 import com.github.PopovDmitry.nstu.webcw.service.ArticleService;
@@ -10,12 +10,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("dev/api/public/articles")
-public class ApiArticleController {
+public class ArticleRestController {
 
     private final ArticleService articleService;
 
     @Autowired
-    public ApiArticleController(ArticleService articleService) { this.articleService = articleService; }
+    public ArticleRestController(ArticleService articleService) { this.articleService = articleService; }
 
 //    @GetMapping
 //    public ResponseEntity<List<Article>> getSiteArticles() {
