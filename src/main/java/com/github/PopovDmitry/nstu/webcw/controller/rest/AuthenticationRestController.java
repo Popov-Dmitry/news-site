@@ -38,8 +38,8 @@ public class AuthenticationRestController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthenticationRequestDTO authenticationRequestDTO) {
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                    authenticationRequestDTO.getEmail(), authenticationRequestDTO.getPassword()));
+//            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+//                    authenticationRequestDTO.getEmail(), authenticationRequestDTO.getPassword()));
             User user = userService.getUser(authenticationRequestDTO.getEmail()).orElseThrow(() ->
                     new UsernameNotFoundException("User is not found"));
             String token = jwtTokenProvider.createToken(authenticationRequestDTO.getEmail(), user.getRole().name());
