@@ -36,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/search/").permitAll()
                 .antMatchers("/contacts").permitAll()
                 .antMatchers("/help/**").permitAll()
+                .antMatchers("/login").permitAll()
                 .antMatchers("/dev/api/public/**").permitAll()
                 .antMatchers("/images/*").permitAll()
                 .antMatchers("/js/*").permitAll()
@@ -43,6 +44,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
+//                .formLogin()
+//                .loginPage("/login")
+//                .defaultSuccessUrl("/news")
+//                .and()
                 .apply(jwtConfigurer);
     }
 
