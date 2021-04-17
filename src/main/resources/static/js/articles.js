@@ -1,7 +1,7 @@
 let url = 'http://localhost:8080/dev/api/public/articles';
 let offset = 0;
 let limit = 5;
-let sortBy = 'dateASC'
+let sortBy = 'dateDESC'
 let articlesCount = 0;
 let lastScroll = false;
 
@@ -58,4 +58,35 @@ $(window).scroll(function(){
 
 $(document).ready(function(){
     scrollArticles();
+
+    $("#dateASC").click(function () {
+        $("#popularity").removeClass("active");
+        $("#dateDESC").removeClass("active");
+        $("#dateASC").addClass("active");
+        sortBy = "dateASC";
+        offset = 0;
+        document.getElementById("articles-container").innerHTML = "";
+        scrollArticles();
+    })
+
+    $("#dateDESC").click(function () {
+        $("#popularity").removeClass("active");
+        $("#dateASC").removeClass("active");
+        $("#dateDESC").addClass("active");
+        sortBy = "dateDESC";
+        offset = 0;
+        document.getElementById("articles-container").innerHTML = "";
+        scrollArticles();
+    })
+
+    $("#popularity").click(function () {
+        $("#dateASC").removeClass("active");
+        $("#dateDESC").removeClass("active");
+        $("#popularity").addClass("active");
+        sortBy = "popularity";
+        offset = 0;
+        document.getElementById("articles-container").innerHTML = "";
+        scrollArticles();
+    })
+
 });

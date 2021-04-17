@@ -55,21 +55,23 @@ public class ArticleService {
     public List<Article> getArticlesLimit(int offset, int limit, String sortBy) {
         logger.info("getArticlesLimit with offset {}", offset);
         Pageable pageable;
-        if(sortBy.equals("dateASC")) {
-            logger.info("sortBy {}", sortBy);
-            pageable = PageRequest.of(offset / limit, limit, Sort.by("timestamp").ascending());
-        }
-        if(sortBy.equals("dateDESC")) {
-            logger.info("sortBy {}", sortBy);
-            pageable = PageRequest.of(offset / limit, limit, Sort.by("timestamp").descending());
-        }
-        if(sortBy.equals("popularity")) {
-            logger.info("sortBy {}", sortBy);
-            pageable = PageRequest.of(offset / limit, limit, Sort.by("#?").ascending());
-        }
-        else {
-            logger.info("sortBy {}", sortBy);
-            pageable = PageRequest.of(offset / limit, limit);
+        switch (sortBy) {
+            case "dateASC" -> {
+                logger.info("sortBy {}", sortBy);
+                pageable = PageRequest.of(offset / limit, limit, Sort.by("timestamp").ascending());
+            }
+            case "dateDESC" -> {
+                logger.info("sortBy {}", sortBy);
+                pageable = PageRequest.of(offset / limit, limit, Sort.by("timestamp").descending());
+            }
+            case "popularity" -> {
+                logger.info("sortBy {}", sortBy);
+                pageable = PageRequest.of(offset / limit, limit, Sort.by("#?").ascending());
+            }
+            default -> {
+                logger.info("sortBy default");
+                pageable = PageRequest.of(offset / limit, limit);
+            }
         }
 
         return articleRepository.findAll(pageable).toList();
