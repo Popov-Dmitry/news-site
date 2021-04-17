@@ -4,6 +4,8 @@ import com.github.PopovDmitry.nstu.webcw.dto.AuthenticationRequestDTO;
 import com.github.PopovDmitry.nstu.webcw.model.User;
 import com.github.PopovDmitry.nstu.webcw.security.JwtTokenProvider;
 import com.github.PopovDmitry.nstu.webcw.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,6 +31,8 @@ public class AuthenticationRestController {
     private final UserService userService;
     private final JwtTokenProvider jwtTokenProvider;
 
+    private final Logger logger = LoggerFactory.getLogger(AuthenticationRestController.class);
+
     public AuthenticationRestController(AuthenticationManager authenticationManager, UserService userService, JwtTokenProvider jwtTokenProvider) {
         this.authenticationManager = authenticationManager;
         this.userService = userService;
@@ -38,6 +42,7 @@ public class AuthenticationRestController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthenticationRequestDTO authenticationRequestDTO) {
         try {
+            logger.info("login");
             //AuthenticationRequestDTO authenticationRequestDTO = new AuthenticationRequestDTO(inputEmail, inputPassword);
 //            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
 //                    authenticationRequestDTO.getEmail(), authenticationRequestDTO.getPassword()));
@@ -52,11 +57,14 @@ public class AuthenticationRestController {
 //                headers.add(HttpHeaders.AUTHORIZATION, token);
 //                headers.add(HttpHeaders.LOCATION, "http://localhost:8080/news");
 //                return new ResponseEntity<>("", headers, HttpStatus.OK);
+                logger.info("login:ok");
                 return ResponseEntity.ok(response);
             }
+            logger.info("login:failure");
             return new ResponseEntity<>("Invalid email/password combination", HttpStatus.FORBIDDEN);
         }
         catch (AuthenticationException exception) {
+            logger.info("login:failure");
             return new ResponseEntity<>("Invalid email/password combination", HttpStatus.FORBIDDEN);
         }
     }

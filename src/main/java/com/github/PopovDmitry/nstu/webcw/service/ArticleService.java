@@ -4,6 +4,8 @@ import com.github.PopovDmitry.nstu.webcw.model.Article;
 import com.github.PopovDmitry.nstu.webcw.model.User;
 import com.github.PopovDmitry.nstu.webcw.repository.ArticleRepository;
 import com.github.PopovDmitry.nstu.webcw.utils.BBParserUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,34 +22,48 @@ public class ArticleService {
 
     @Autowired private UserService userService; // FIXME: 11.04.2021
 
+    private final Logger logger = LoggerFactory.getLogger(ArticleService.class);
+
     @Autowired
     public ArticleService(ArticleRepository articleRepository) { this.articleRepository = articleRepository; }
 
     public void saveArticle(Article article) {
+        logger.info("saveArticle");
+
         article.setTimestamp(new Date(new java.util.Date().getTime()));
         article.setContent(BBParserUtil.parse(article.getContent()));
         article.setAuthor(userService.getUser(1).get()); // FIXME: 11.04.2021
         articleRepository.save(article);
     }
 
-    public Optional<Article> getArticle(long id) { return articleRepository.findById(id); }
+    public Optional<Article> getArticle(long id) {
+        logger.info("getArticle with id {}", id);
+        return articleRepository.findById(id);
+    }
 
     public Optional<Article> getArticle(User user) {
+        logger.info("getArticle");
         return articleRepository.findByAuthor(user);
     }
 
     public List<Article> getAllArticles() {
+        logger.info("getAllArticles");
         return articleRepository.findAll();
     }
 
     public List<Article> getArticlesLimit(int offset, int limit) {
+        logger.info("getArticlesLimit with offset {}", offset);
         Pageable pageable = PageRequest.of(offset / limit, limit);
         return articleRepository.findAll(pageable).toList();
     }
 
-    public Long getArticlesCount() { return articleRepository.count(); }
+    public Long getArticlesCount() {
+        logger.info("getArticlesCount");
+        return articleRepository.count();
+    }
 
     public Optional<List<Article>> searchArticles(String query) {
+        logger.info("searchArticles with query {}", query);
 
         String[] words = query.split(" ");
         List<Article> wordsResponseList = new ArrayList<>();
@@ -68,10 +84,12 @@ public class ArticleService {
     }
 
     public void updateArticle(Article article) {
+        logger.info("updateArticle");
         articleRepository.save(article);
     }
 
     public void deleteArticle(Article article) {
+        logger.info("deleteArticle");
         articleRepository.delete(article);
     }
 }

@@ -1,5 +1,7 @@
 package com.github.PopovDmitry.nstu.webcw.security;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -20,6 +22,8 @@ public class JwtTokenFilter extends GenericFilterBean {
 
     private final JwtTokenProvider jwtTokenProvider;
 
+    private final Logger logger = LoggerFactory.getLogger(JwtTokenFilter.class);
+
     @Autowired
     public JwtTokenFilter(JwtTokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;
@@ -27,18 +31,21 @@ public class JwtTokenFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        logger.info("doFilter");
         String token = jwtTokenProvider.resolveToken((HttpServletRequest) servletRequest);
-        System.out.println(token);
+        logger.info("token: {}", token);
 
         try {
             if(token != null && jwtTokenProvider.validate(token)) {
                 Authentication authentication = jwtTokenProvider.getAuthentication(token);
                 if(authentication != null) {
+                    logger.info("setAuthentication");
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             }
         }
         catch (JwtAuthenticationException exception) {
+            logger.info("SecurityContextHolder.clearContext()");
             SecurityContextHolder.clearContext();
             ((HttpServletResponse) servletResponse).sendError(exception.getHttpStatus().value());
             throw new JwtAuthenticationException("JWT token is expired or invalid", HttpStatus.UNAUTHORIZED);

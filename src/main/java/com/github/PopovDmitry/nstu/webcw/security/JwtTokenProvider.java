@@ -1,6 +1,8 @@
 package com.github.PopovDmitry.nstu.webcw.security;
 
 import io.jsonwebtoken.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,6 +32,8 @@ public class JwtTokenProvider {
 
     private final UserDetailsService userDetailsService;
 
+    private final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
+
     @Autowired
     public JwtTokenProvider(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
@@ -41,6 +45,8 @@ public class JwtTokenProvider {
     }
 
     public String createToken(String username, String role) {
+        logger.info("createToken for {}", username);
+
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("role", role);
         Date now = new Date();
@@ -56,6 +62,7 @@ public class JwtTokenProvider {
 
     public boolean validate(String token) {
         try {
+            logger.info("validate token {}", token);
             Jws<Claims> claimsJws = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
             return !claimsJws.getBody().getExpiration().before(new Date());
         }
@@ -65,15 +72,18 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(String token) {
+        logger.info("getAuthentication for token {}", token);
         UserDetails userDetails = userDetailsService.loadUserByUsername(getUsername(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
     public String getUsername(String token) {
+        logger.info("getUsername for token {}", token);
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 
     public String resolveToken(HttpServletRequest request) {
+        logger.info("resolveToken: authorizationHeader {}", request.getHeader(authorizationHeader));
         return request.getHeader(authorizationHeader);
     }
 }

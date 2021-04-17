@@ -2,6 +2,8 @@ package com.github.PopovDmitry.nstu.webcw.security;
 
 import com.github.PopovDmitry.nstu.webcw.model.Status;
 import com.github.PopovDmitry.nstu.webcw.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +17,8 @@ public class SecurityUser implements UserDetails {
     private final String password;
     private final List<SimpleGrantedAuthority> authorities;
     private final boolean isActive;
+
+    private final Logger logger = LoggerFactory.getLogger(SecurityUser.class);
 
     public SecurityUser(String username, String password, List<SimpleGrantedAuthority> authorities, boolean isActive) {
         this.username = username;

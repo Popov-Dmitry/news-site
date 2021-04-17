@@ -29,13 +29,14 @@ public class AuthenticationController {
     }
 
     @GetMapping("/auth")
-    public String login(Model model) {
-//        model.addAttribute("request", new AuthenticationRequestDTO());
+    public String login() {
+        logger.info("login");
         return "views/signIn";
     }
 
     @GetMapping("/auth/reg")
     public String getRegPage(Model model) {
+        logger.info("getRegPage");
         model.addAttribute("user", new User());
         return "views/signUp";
     }
