@@ -1,5 +1,6 @@
 package com.github.PopovDmitry.nstu.webcw.controller;
 
+import com.github.PopovDmitry.nstu.webcw.dto.ArticleDTO;
 import com.github.PopovDmitry.nstu.webcw.model.Article;
 import com.github.PopovDmitry.nstu.webcw.service.ArticleService;
 import org.slf4j.Logger;
@@ -43,14 +44,19 @@ public class ArticleController {
         return "views/showArticle";
     }
 
+    @PreAuthorize("hasAnyAuthority('articles:write')")
     @PostMapping()
-    public String addArticle(@ModelAttribute("article") @Valid Article article, BindingResult bindingResult) {
+//    public String addArticle(@ModelAttribute("article") @Valid Article article, BindingResult bindingResult) {
+    public String addArticle(@RequestBody ArticleDTO articleDTO, BindingResult bindingResult) {
         logger.info("addArticle");
         if(bindingResult.hasErrors()) {
             logger.info("Article has errors");
             return "views/newArticle";
         }
 
+        Article article = new Article();
+        article.setTitle(articleDTO.getTitle());
+        article.setContent(articleDTO.getContent());
         articleService.saveArticle(article);
         return "redirect:/news";
     }
@@ -61,7 +67,6 @@ public class ArticleController {
         return "";
     }
 
-    @PreAuthorize("hasAnyAuthority('articles:write')")
     @GetMapping("/new")
     public String newArticle(Model model) {
         logger.info("newArticle");
