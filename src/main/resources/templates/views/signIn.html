@@ -10,7 +10,7 @@
 
     <link href="/style/style.css" rel="stylesheet">
 
-    <script src="/js/signIn.js"></script>
+    <script src="/js/auth.js"></script>
 
 </head>
 <body>
@@ -66,7 +66,7 @@
                     <br>
                     <input type="password" class="form-control" id="inputPassword" placeholder="Пароль">
                     <br>
-                    <button class="btn btn-default" onclick="sendJSON('http://localhost:8080/dev/api/public/auth/login')">ВХОД</button>
+                    <button class="btn btn-default" onclick="signIn('http://localhost:8080/dev/api/public/auth/login')">ВХОД</button>
 <!--                    <button type="submit" class="btn btn-default">ВХОД</button>-->
                 </div>
             </div>

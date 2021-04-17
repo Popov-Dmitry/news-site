@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,15 +23,19 @@ public class User {
     private long id;
 
     @Column(name = "first_name")
+    @NotEmpty(message = "Имя не может быть пустым")
     private String firstName;
 
     @Column(name = "last_name")
     private String lastName;
 
     @Column(name = "email")
+    @NotEmpty(message = "Email не может быть пустым")
     private String email;
 
     @Column(name = "password")
+    @NotEmpty(message = "Пароль не может быть пустым")
+    @Min(value = 5, message = "Пароль должен состоять от 5 символов")
     private String password;
 
     @Column(name = "role")
@@ -42,8 +48,6 @@ public class User {
     @JsonBackReference
     private List<Article> articles = new ArrayList<>();
 
-    public String getFullName() {
-        return firstName + " " + lastName;
-    }
+    public String getFullName() { return firstName + " " + lastName; }
 
 }

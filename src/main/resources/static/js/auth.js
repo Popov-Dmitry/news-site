@@ -1,6 +1,6 @@
 let token;
 
-function sendJSON(url) {
+function signIn(url) {
     // let request;
     // if(window.XMLHttpRequest){
     //     request = new XMLHttpRequest();
@@ -58,7 +58,7 @@ function sendJSON(url) {
             // alert(resp.token);
             token = resp.token;
             localStorage.setItem("token", token);
-            //window.location.replace('http://localhost:8080/news');
+            window.location.replace('http://localhost:8080/news');
         }
     });
 
@@ -96,6 +96,36 @@ function sendJSON(url) {
 //         });
 //     })
 // })
+
+
+
+// function signUp(url) {
+//
+//     let firstName = document.querySelector('#inputFirstName');
+//     let lastName = document.querySelector('#inputLastName');
+//     let email = document.querySelector('#inputEmail');
+//     let password = document.querySelector('#inputPassword');
+//     let data = JSON.stringify({
+//         "firstName": firstName.value,
+//         "lastName": lastName.value,
+//         "email": email.value,
+//         "password": password.value
+//     });
+//
+//     $.ajax({
+//         url: url,
+//         type: 'POST',
+//         data: data,
+//         contentType: 'application/json; charset=utf-8',
+//         dataType: 'json',
+//         async: false,
+//         success: function(resp) {
+//             token = resp.token;
+//             localStorage.setItem("token", token);
+//             window.location.replace('http://localhost:8080/news');
+//         }
+//     });
+// }
 
 
 
