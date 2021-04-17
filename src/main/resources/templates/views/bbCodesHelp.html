@@ -66,6 +66,7 @@
       <li><a href="#underline" style="text-decoration: none;">Подчёркнутый шрифт</a></li>
       <li><a href="#center" style="text-decoration: none;">Текст по центру</a></li>
       <li><a href="#multiple" style="text-decoration: none;">Объединение bb-кодов</a></li>
+      <li><a href="#error" style="text-decoration: none;">Примечание</a></li>
     </ul>
   </nav>
   <br><br>
@@ -88,7 +89,11 @@
     <br>
 
     <textarea id="multiple" rows="2" cols="52" disabled style="resize: none"> [c][i]bb-коды[/i] [b][u]можно[/u] оъединять[/b][/c]</textarea>
-    <p>Результат: </p><div align="center"><span style='font-style:italic;'>bb-коды</span> <span style='font-weight:bold;'><span style='text-decoration:underline;'>можно</span> объединять</span></div>
+    <p>Результат: </p><div align="center"><span style='font-style:italic;'>bb-коды</span> <span style='font-weight:bold;'><span style='text-decoration:underline;'>можно</span> объединять</span>*</div>
+    <br>
+
+    <p>*<span style='text-decoration:underline;'><span style='font-style:italic;'>Примечание:</span></span> сначала закрывается самый вложенный тег, например, следующий синтаксис будет неверен:</p>
+    <textarea id="error" rows="2" cols="52" disabled style="resize: none"> [b][u]Неверный[/b] синтаксис[/u]</textarea>
     <br>
   </div>
   <br>

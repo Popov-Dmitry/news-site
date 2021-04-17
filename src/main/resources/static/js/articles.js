@@ -13,6 +13,7 @@ $.getJSON(url + '/count', function(data, key) {
 
 function scrollArticles() {
     let $target = $('#show-more-trigger');
+    $target.show();
 
     let wt = $(window).scrollTop();
     let wh = $(window).height();
@@ -43,7 +44,7 @@ function scrollArticles() {
     });
         offset += limit;
         if(offset >= articlesCount && lastScroll) {
-            $target.remove();
+            $target.hide();
         }
         if(offset >= articlesCount && !lastScroll) {
             lastScroll = true;

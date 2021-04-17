@@ -53,7 +53,8 @@
 #italic,
 #underline,
 #center,
-#multiple {
+#multiple,
+#error {
     resize: none;
 }
 
