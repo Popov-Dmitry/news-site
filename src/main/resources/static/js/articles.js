@@ -1,6 +1,7 @@
 let url = 'http://localhost:8080/dev/api/public/articles';
 let offset = 0;
 let limit = 5;
+let sortBy = 'dateASC'
 let articlesCount = 0;
 let lastScroll = false;
 
@@ -21,7 +22,7 @@ function scrollArticles() {
 
     if (wt + wh >= et || wh + wt === dh || eh + et < wh){
 
-        $.getJSON(url + '?offset=' + offset + '&limit=' + limit, function(data, key) {
+        $.getJSON(url + '?offset=' + offset + '&limit=' + limit + '&sortBy=' + sortBy, function(data, key) {
 
         $.each(data, function(key, data) {
             let previewContent = data.content.trim();

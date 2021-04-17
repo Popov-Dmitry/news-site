@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -51,9 +52,26 @@ public class ArticleService {
         return articleRepository.findAll();
     }
 
-    public List<Article> getArticlesLimit(int offset, int limit) {
+    public List<Article> getArticlesLimit(int offset, int limit, String sortBy) {
         logger.info("getArticlesLimit with offset {}", offset);
-        Pageable pageable = PageRequest.of(offset / limit, limit);
+        Pageable pageable;
+        if(sortBy.equals("dateASC")) {
+            logger.info("sortBy {}", sortBy);
+            pageable = PageRequest.of(offset / limit, limit, Sort.by("timestamp").ascending());
+        }
+        if(sortBy.equals("dateDESC")) {
+            logger.info("sortBy {}", sortBy);
+            pageable = PageRequest.of(offset / limit, limit, Sort.by("timestamp").descending());
+        }
+        if(sortBy.equals("popularity")) {
+            logger.info("sortBy {}", sortBy);
+            pageable = PageRequest.of(offset / limit, limit, Sort.by("#?").ascending());
+        }
+        else {
+            logger.info("sortBy {}", sortBy);
+            pageable = PageRequest.of(offset / limit, limit);
+        }
+
         return articleRepository.findAll(pageable).toList();
     }
 

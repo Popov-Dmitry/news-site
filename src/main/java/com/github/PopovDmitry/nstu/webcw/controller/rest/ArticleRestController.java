@@ -28,9 +28,10 @@ public class ArticleRestController {
 
     @GetMapping
     public ResponseEntity<List<Article>> getSiteArticlesLimit(@RequestParam("offset") int offset,
-                                                              @RequestParam("limit") int limit) {
+                                                              @RequestParam("limit") int limit,
+                                                              @RequestParam("sortBy") String sortBy) {
         logger.info("getSiteArticlesLimit with offset={} and limit={}", offset, limit);
-        return ResponseEntity.ok(articleService.getArticlesLimit(offset, limit));
+        return ResponseEntity.ok(articleService.getArticlesLimit(offset, limit, sortBy));
     }
 
     @GetMapping("/count")
