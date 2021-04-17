@@ -26,8 +26,12 @@ public class UserController {
     @GetMapping("/{id}/edit")
     public String getEditForm(@PathVariable long id, Model model) {
         logger.info("getEditForm for user with id {}", id);
-        model.addAttribute("user", userService.getUser(id));
-        return "";
+        if (userService.getUser(id).isEmpty()) {
+            logger.info("User with id {} is not found", id);
+        }
+
+        model.addAttribute("user", userService.getUser(id).get());
+        return "views/editUser";
     }
 
     @PatchMapping("/{id}")
