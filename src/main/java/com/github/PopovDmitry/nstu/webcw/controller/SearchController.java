@@ -25,6 +25,7 @@ public class SearchController {
 
     @GetMapping("/search/")
     public String searchArticles(@RequestParam("query") String query, Model model) {
+        logger.info("searchArticles with query: {}", query);
         Optional<List<Article>> articles = articleService.searchArticles(query);
 
         articles.ifPresent(articleList -> model.addAttribute("articles", articleList));

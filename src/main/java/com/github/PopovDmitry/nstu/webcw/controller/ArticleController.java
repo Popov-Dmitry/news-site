@@ -1,15 +1,18 @@
 package com.github.PopovDmitry.nstu.webcw.controller;
 
+import com.github.PopovDmitry.nstu.webcw.dto.ArticleDTO;
 import com.github.PopovDmitry.nstu.webcw.model.Article;
 import com.github.PopovDmitry.nstu.webcw.service.ArticleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -42,15 +45,22 @@ public class ArticleController {
         return "views/showArticle";
     }
 
+    @PreAuthorize("hasAnyAuthority('articles:write')")
     @PostMapping()
-    public String addArticle(@ModelAttribute("article") @Valid Article article, BindingResult bindingResult) {
+//    public String addArticle(@ModelAttribute("article") @Valid Article article, BindingResult bindingResult) {
+    public String addArticle(@RequestBody @Valid ArticleDTO articleDTO,
+                             BindingResult bindingResult,
+                             HttpServletRequest httpServletRequest) {
         logger.info("addArticle");
         if(bindingResult.hasErrors()) {
             logger.info("Article has errors");
             return "views/newArticle";
         }
 
-        articleService.saveArticle(article);
+        Article article = new Article();
+        article.setTitle(articleDTO.getTitle());
+        article.setContent(articleDTO.getContent());
+        articleService.saveArticle(article, httpServletRequest);
         return "redirect:/news";
     }
 

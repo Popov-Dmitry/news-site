@@ -1,6 +1,7 @@
 let url = 'http://localhost:8080/dev/api/public/articles';
 let offset = 0;
 let limit = 5;
+let sortBy = 'dateDESC'
 let articlesCount = 0;
 let lastScroll = false;
 
@@ -12,6 +13,7 @@ $.getJSON(url + '/count', function(data, key) {
 
 function scrollArticles() {
     let $target = $('#show-more-trigger');
+    $target.show();
 
     let wt = $(window).scrollTop();
     let wh = $(window).height();
@@ -21,7 +23,7 @@ function scrollArticles() {
 
     if (wt + wh >= et || wh + wt === dh || eh + et < wh){
 
-        $.getJSON(url + '?offset=' + offset + '&limit=' + limit, function(data, key) {
+        $.getJSON(url + '?offset=' + offset + '&limit=' + limit + '&sortBy=' + sortBy, function(data, key) {
 
         $.each(data, function(key, data) {
             let previewContent = data.content.trim();
@@ -42,7 +44,7 @@ function scrollArticles() {
     });
         offset += limit;
         if(offset >= articlesCount && lastScroll) {
-            $target.remove();
+            $target.hide();
         }
         if(offset >= articlesCount && !lastScroll) {
             lastScroll = true;
@@ -57,4 +59,35 @@ $(window).scroll(function(){
 
 $(document).ready(function(){
     scrollArticles();
+
+    $("#dateASC").click(function () {
+        $("#popularity").removeClass("active");
+        $("#dateDESC").removeClass("active");
+        $("#dateASC").addClass("active");
+        sortBy = "dateASC";
+        offset = 0;
+        document.getElementById("articles-container").innerHTML = "";
+        scrollArticles();
+    })
+
+    $("#dateDESC").click(function () {
+        $("#popularity").removeClass("active");
+        $("#dateASC").removeClass("active");
+        $("#dateDESC").addClass("active");
+        sortBy = "dateDESC";
+        offset = 0;
+        document.getElementById("articles-container").innerHTML = "";
+        scrollArticles();
+    })
+
+    $("#popularity").click(function () {
+        $("#dateASC").removeClass("active");
+        $("#dateDESC").removeClass("active");
+        $("#popularity").addClass("active");
+        sortBy = "popularity";
+        offset = 0;
+        document.getElementById("articles-container").innerHTML = "";
+        scrollArticles();
+    })
+
 });

@@ -10,6 +10,7 @@
 
     <link href="/style/style.css" rel="stylesheet">
     <script src="/js/articles.js"></script>
+    <script src="/js/auth.js"></script>
 </head>
 <body>
 
@@ -32,13 +33,19 @@
                 <li class="nav-item">
                     <a class="nav-link" href="http://localhost:8080/contacts">Контакты</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost:8080/auth/reg">Регистрация</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://localhost:8080/auth">Авторизация</a>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         (USER)
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Настройки</a></li>
-                        <li><a class="dropdown-item" href="http://localhost:8080/news/new">Написать статью (НАСТРОИТЬ ПРАВА)</a></li>
+                        <li><a class="dropdown-item" href="http://localhost:8080/users/edit">Настройки</a></li>
+                        <li><a class="dropdown-item" id="new" href="http://localhost:8080/news/new">Написать статью (НАСТРОИТЬ ПРАВА)</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#">Выйти</a></li>
                     </ul>
@@ -64,13 +71,13 @@
 <div class="container-xxl">
     <ul class="nav nav-pills">
         <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">По популярности</a>
+            <a class="nav-link active" id="popularity" aria-current="page" href="#">По популярности</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Сначала новые</a>
+            <a class="nav-link" id="dateDESC" href="#">Сначала новые</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Сначала старые</a>
+            <a class="nav-link" id="dateASC" href="#">Сначала старые</a>
         </li>
     </ul>
 </div>
