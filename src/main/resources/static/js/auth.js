@@ -194,3 +194,60 @@ $(document).ready(function () {
 
     })
 })
+
+
+
+
+$(document).ready(function () {
+    let data = JSON.stringify({
+        "token": localStorage.getItem("token")
+    });
+
+    $.ajax({
+        url: 'http://localhost:8080/dev/api/public/auth',
+        type: 'POST',
+        data: data,
+        contentType: 'application/json; charset=utf-8',
+        //dataType: 'json',
+        async: false,
+        success: function(resp) {
+            console.log(resp);
+            if (resp.isValid) {
+                $('#reg').hide();
+                $('#login').hide();
+                $('#user').show();
+                $('#navbarDropdown').html(resp.name);
+            }
+            else {
+                $('#reg').show();
+                $('#login').show();
+                $('#user').hide();
+            }
+        },
+        error: function (data) {
+            alert(data.status + ':' + data.statusText);
+        }
+
+    });
+
+    $('#exit').click(function () {
+        $.ajax({
+            url: 'http://localhost:8080/dev/api/public/auth/logout',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            //dataType: 'json',
+            headers: { 'Authorization': localStorage.getItem("token"),
+                'Content-Type': 'application/json' },
+            async: false,
+            success: function(resp) {
+                localStorage.removeItem('token');
+                window.location.replace('http://localhost:8080/news');
+            },
+            error: function (data) {
+                alert(data.status + ':' + data.statusText);
+            }
+
+        });
+    });
+
+})
