@@ -1,5 +1,6 @@
 package com.github.PopovDmitry.nstu.webcw.controller.rest;
 
+import com.github.PopovDmitry.nstu.webcw.dto.CommentDTO;
 import com.github.PopovDmitry.nstu.webcw.model.Comment;
 import com.github.PopovDmitry.nstu.webcw.security.JwtAuthenticationException;
 import com.github.PopovDmitry.nstu.webcw.service.ArticleService;
@@ -41,10 +42,13 @@ public class CommentRestController {
 
     @PostMapping("/{id}")
     public ResponseEntity<?> addComment(@PathVariable long id,
-                           @RequestBody Comment comment,
+                           @RequestBody CommentDTO commentDTO,
                            HttpServletRequest httpServletRequest) {
         try {
             if(articleService.getArticle(id).isPresent()) {
+                Comment comment = new Comment();
+                comment.setContent(commentDTO.getContent());
+                comment.setArticle(articleService.getArticle(id).get());
                 commentService.addComment(comment, httpServletRequest);
                 return ResponseEntity.ok().build();
             }
