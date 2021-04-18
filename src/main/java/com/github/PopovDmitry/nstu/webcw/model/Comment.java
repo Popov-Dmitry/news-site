@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.sql.Date;
 
 @Entity
@@ -35,5 +36,6 @@ public class Comment {
     private Date timestamp;
 
     @Column(name = "content")
+    @NotEmpty(message = "Комментарий не может быть пустым")
     private String content;
 }

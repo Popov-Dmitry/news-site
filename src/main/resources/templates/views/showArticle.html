@@ -10,8 +10,10 @@
 
     <link href="/style/style.css" rel="stylesheet">
     <script src="/js/readingTime.js"></script>
+    <script src="/js/comments.js"></script>
 </head>
 <body>
+
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-xxl">
@@ -68,7 +70,17 @@
         <br>
         <div class="article-text" th:block th:utext="${article.getContent()}"></div>
     </article>
+
+    <label for="commentContent">Написать комментарий: </label>
+    <textarea class="form-control" id="commentContent"></textarea>
+    <button class="btn btn-primary" id="sendCommentBtn">Написать</button>
+    <br>
+
+    <div class="comments-container">
+
+    </div>
 </div>
+<br>
 
 </body>
 </html>
