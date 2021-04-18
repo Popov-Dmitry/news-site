@@ -48,6 +48,10 @@ public class User {
     @JsonBackReference
     private List<Article> articles = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user")
+    @JsonBackReference
+    private List<Comment> comments = new ArrayList<>();
+
     public String getFullName() { return firstName + " " + lastName; }
 
 }
