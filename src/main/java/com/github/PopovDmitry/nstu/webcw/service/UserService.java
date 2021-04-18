@@ -17,9 +17,7 @@ public class UserService {
     private final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    public UserService(UserRepository userRepository) { this.userRepository = userRepository; }
 
     public void saveUser(User user) {
         logger.info("saveUser");

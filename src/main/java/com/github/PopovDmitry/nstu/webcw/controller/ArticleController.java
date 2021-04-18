@@ -40,8 +40,12 @@ public class ArticleController {
             logger.info("Article with id {} is not found", id);
             return "redirect:/news";
         }
-        model.addAttribute("article", articleService.getArticle(id).get());
-        model.addAttribute("pageTitle", articleService.getArticle(id).get().getTitle());
+
+        Article article = articleService.getArticle(id).get();
+        article.setViews(article.getViews() + 1);
+        articleService.updateArticle(article);
+        model.addAttribute("article", article);
+        model.addAttribute("pageTitle", article.getTitle());
         return "views/showArticle";
     }
 

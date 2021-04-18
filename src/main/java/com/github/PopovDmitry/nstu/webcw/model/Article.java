@@ -38,4 +38,7 @@ public class Article {
     @Column(name = "timestamp")
     private Date timestamp;
 
+    @Column(name = "views")
+    private long views;
+
 }

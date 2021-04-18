@@ -25,9 +25,7 @@ public class JwtTokenFilter extends GenericFilterBean {
     private final Logger logger = LoggerFactory.getLogger(JwtTokenFilter.class);
 
     @Autowired
-    public JwtTokenFilter(JwtTokenProvider jwtTokenProvider) {
-        this.jwtTokenProvider = jwtTokenProvider;
-    }
+    public JwtTokenFilter(JwtTokenProvider jwtTokenProvider) { this.jwtTokenProvider = jwtTokenProvider; }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
