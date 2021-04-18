@@ -45,4 +45,17 @@ public class UserController {
         userService.saveUser(user);
         return "redirect:/news";
     }
+
+    @GetMapping("/{id}")
+    public String getUser(@PathVariable long id, Model model) {
+        logger.info("getUser with id {}", id);
+        if(userService.getUser(id).isEmpty()) {
+            logger.info("getUser with id {} is not found", id);
+            return "redirect:/news";
+        }
+
+        model.addAttribute("title", "Пользователь " + userService.getUser(id).get().getFullName());
+        model.addAttribute("user", userService.getUser(id).get());
+        return "views/showUser";
+    }
 }
