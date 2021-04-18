@@ -10,6 +10,16 @@
 
     <link href="/style/style.css" rel="stylesheet">
     <script src="/js/auth.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#news').removeClass('active');
+            $('#contacts').removeClass('active');
+            $('#auth-reg').removeClass('active');
+            $('#auth').removeClass('active');
+            $('#navbarDropdown').addClass('active');
+        });
+    </script>
 </head>
 <body>
 
@@ -24,16 +34,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="http://localhost:8080/news">Новости</a>
+                    <a class="nav-link active" id="news" aria-current="page" href="http://localhost:8080/news">Новости</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="http://localhost:8080/contacts">Контакты</a>
+                    <a class="nav-link" id="contacts" href="http://localhost:8080/contacts">Контакты</a>
                 </li>
                 <li class="nav-item" id="reg">
-                    <a class="nav-link" href="http://localhost:8080/auth/reg">Регистрация</a>
+                    <a class="nav-link" id="auth-reg" href="http://localhost:8080/auth/reg">Регистрация</a>
                 </li>
                 <li class="nav-item" id="login">
-                    <a class="nav-link" href="http://localhost:8080/auth">Авторизация</a>
+                    <a class="nav-link" id="auth" href="http://localhost:8080/auth">Авторизация</a>
                 </li>
                 <li class="nav-item dropdown" id="user">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
