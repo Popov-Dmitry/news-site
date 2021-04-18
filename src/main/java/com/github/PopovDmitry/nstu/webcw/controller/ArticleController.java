@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -47,7 +48,9 @@ public class ArticleController {
     @PreAuthorize("hasAnyAuthority('articles:write')")
     @PostMapping()
 //    public String addArticle(@ModelAttribute("article") @Valid Article article, BindingResult bindingResult) {
-    public String addArticle(@RequestBody ArticleDTO articleDTO, BindingResult bindingResult) {
+    public String addArticle(@RequestBody @Valid ArticleDTO articleDTO,
+                             BindingResult bindingResult,
+                             HttpServletRequest httpServletRequest) {
         logger.info("addArticle");
         if(bindingResult.hasErrors()) {
             logger.info("Article has errors");
@@ -57,7 +60,7 @@ public class ArticleController {
         Article article = new Article();
         article.setTitle(articleDTO.getTitle());
         article.setContent(articleDTO.getContent());
-        articleService.saveArticle(article);
+        articleService.saveArticle(article, httpServletRequest);
         return "redirect:/news";
     }
 

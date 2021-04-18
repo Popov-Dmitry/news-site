@@ -3,6 +3,7 @@ package com.github.PopovDmitry.nstu.webcw.service;
 import com.github.PopovDmitry.nstu.webcw.model.Article;
 import com.github.PopovDmitry.nstu.webcw.model.User;
 import com.github.PopovDmitry.nstu.webcw.repository.ArticleRepository;
+import com.github.PopovDmitry.nstu.webcw.security.JwtTokenProvider;
 import com.github.PopovDmitry.nstu.webcw.utils.BBParserUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
 import java.util.*;
 import java.util.stream.Stream;
@@ -20,20 +22,30 @@ import java.util.stream.Stream;
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
+    private final UserService userService;
+    private final JwtTokenProvider jwtTokenProvider;
 
-    @Autowired private UserService userService; // FIXME: 11.04.2021
 
     private final Logger logger = LoggerFactory.getLogger(ArticleService.class);
 
     @Autowired
-    public ArticleService(ArticleRepository articleRepository) { this.articleRepository = articleRepository; }
+    public ArticleService(ArticleRepository articleRepository, UserService userService, JwtTokenProvider jwtTokenProvider) {
+        this.articleRepository = articleRepository;
+        this.userService = userService;
+        this.jwtTokenProvider = jwtTokenProvider;
+    }
 
-    public void saveArticle(Article article) {
-        logger.info("saveArticle");
+    public void saveArticle(Article article, HttpServletRequest httpServletRequest) {
+        logger.info("saveArticle with token: {}", jwtTokenProvider.resolveToken(httpServletRequest));
+        logger.info("saveArticle with username: {}", jwtTokenProvider.getUsername(jwtTokenProvider.resolveToken(httpServletRequest)));
 
         article.setTimestamp(new Date(new java.util.Date().getTime()));
         article.setContent(BBParserUtil.parse(article.getContent()));
-        article.setAuthor(userService.getUser(1).get()); // FIXME: 11.04.2021
+        article.setAuthor(
+                userService.getUser(
+                        jwtTokenProvider.getUsername(
+                                jwtTokenProvider.resolveToken(httpServletRequest)))
+                        .get());
         articleRepository.save(article);
     }
 
