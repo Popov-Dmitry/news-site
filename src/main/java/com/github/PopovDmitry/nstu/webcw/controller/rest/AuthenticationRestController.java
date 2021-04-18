@@ -1,7 +1,9 @@
 package com.github.PopovDmitry.nstu.webcw.controller.rest;
 
 import com.github.PopovDmitry.nstu.webcw.dto.AuthenticationRequestDTO;
+import com.github.PopovDmitry.nstu.webcw.dto.JwtTokenDTO;
 import com.github.PopovDmitry.nstu.webcw.model.User;
+import com.github.PopovDmitry.nstu.webcw.security.JwtAuthenticationException;
 import com.github.PopovDmitry.nstu.webcw.security.JwtTokenProvider;
 import com.github.PopovDmitry.nstu.webcw.service.UserService;
 import org.slf4j.Logger;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 
 @RestController
@@ -73,5 +76,26 @@ public class AuthenticationRestController {
     public void logout(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
         SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
         securityContextLogoutHandler.logout(httpServletRequest, httpServletResponse, null);
+    }
+
+    @PostMapping
+    public ResponseEntity<?> auth(@RequestBody JwtTokenDTO jwtTokenDTO) {
+        logger.info("auth");
+        Hashtable<String, Object> hashtable = new Hashtable<>();
+        try {
+            if (jwtTokenProvider.validate(jwtTokenDTO.getToken())) {
+                hashtable.put("isValid", true);
+                hashtable.put("name", userService.getUser(
+                        jwtTokenProvider.getUsername(jwtTokenDTO.getToken()))
+                        .get()
+                        .getFirstName());
+            }
+        }
+        catch (JwtAuthenticationException exception) {
+            hashtable.put("isValid", false);
+            hashtable.put("name", "");
+        }
+
+        return ResponseEntity.ok(hashtable);
     }
 }
