@@ -10,6 +10,7 @@
 
   <link href="/style/style.css" rel="stylesheet">
   <script src="/js/articles.js"></script>
+  <script src="/js/auth.js"></script>
 </head>
 <body>
 
@@ -27,20 +28,22 @@
           <a class="nav-link active" aria-current="page" href="http://localhost:8080/news">Новости</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Закладки</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="http://localhost:8080/contacts">Контакты</a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item" id="reg">
+          <a class="nav-link" href="http://localhost:8080/auth/reg">Регистрация</a>
+        </li>
+        <li class="nav-item" id="login">
+          <a class="nav-link" href="http://localhost:8080/auth">Авторизация</a>
+        </li>
+        <li class="nav-item dropdown" id="user">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             (USER)
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Настройки</a></li>
-            <li><a class="dropdown-item" href="http://localhost:8080/news/new">Написать статью (НАСТРОИТЬ ПРАВА)</a></li>
+            <li><a class="dropdown-item" id="new" href="http://localhost:8080/news/new">Написать статью</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Выйти</a></li>
+            <li><a class="dropdown-item" id="exit" href="#">Выйти</a></li>
           </ul>
         </li>
       </ul>

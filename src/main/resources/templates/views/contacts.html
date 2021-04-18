@@ -8,6 +8,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 
+    <link href="/style/style.css" rel="stylesheet">
+    <script src="/js/auth.js"></script>
 </head>
 <body>
 
@@ -25,25 +27,27 @@
                     <a class="nav-link active" aria-current="page" href="http://localhost:8080/news">Новости</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Закладки</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="http://localhost:8080/contacts">Контакты</a>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item" id="reg">
+                    <a class="nav-link" href="http://localhost:8080/auth/reg">Регистрация</a>
+                </li>
+                <li class="nav-item" id="login">
+                    <a class="nav-link" href="http://localhost:8080/auth">Авторизация</a>
+                </li>
+                <li class="nav-item dropdown" id="user">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         (USER)
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Настройки</a></li>
-                        <li><a class="dropdown-item" href="http://localhost:8080/news/new">Написать статью (НАСТРОИТЬ ПРАВА)</a></li>
+                        <li><a class="dropdown-item" id="new" href="http://localhost:8080/news/new">Написать статью</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Выйти</a></li>
+                        <li><a class="dropdown-item" id="exit" href="#">Выйти</a></li>
                     </ul>
                 </li>
             </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Поиск статьи" aria-label="Search">
+            <form action="http://localhost:8080/search/" class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Поиск статьи" aria-label="Search" name="query">
                 <button class="btn btn-outline-success" type="submit">Искать</button>
             </form>
         </div>
