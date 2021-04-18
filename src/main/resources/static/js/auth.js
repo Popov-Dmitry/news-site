@@ -180,7 +180,7 @@ $(document).ready(function () {
                 if(data.status === 500) {
                     alert("Заполните все поля");
                 }
-                if(data.status === 403) {
+                else if(data.status === 403) {
                     alert("Недостаточно прав");
                 }
                 else {

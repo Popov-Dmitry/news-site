@@ -59,7 +59,7 @@
     <article>
         <header class="article-header">
             <hr style="width: 30%">
-            <a class="article-author" href="#" title="Автор статьи" th:text="${article.getAuthor().getFullName()}"></a>
+            <a class="article-author" th:href="@{/users/{id}(id=${article.getAuthor().getId()})}" title="Автор статьи" th:text="${article.getAuthor().getFullName()}"></a>
             <span> &nbsp;&nbsp; </span>
             <span th:text="${article.getTimestamp()}" style="color: #727272"></span>
             <p class="article-info" style="margin-bottom: 0">Число прочтений: <span th:text="${article.getViews()}"></span></p>
@@ -70,9 +70,13 @@
         <br>
         <div class="article-text" th:block th:utext="${article.getContent()}"></div>
     </article>
+    <br>
+    <hr>
+    <br>
 
-    <label for="commentContent">Написать комментарий: </label>
+    <label for="commentContent" style="font-style: italic">Написать комментарий: </label>
     <textarea class="form-control" id="commentContent"></textarea>
+    <br>
     <button class="btn btn-primary" id="sendCommentBtn">Написать</button>
     <br>
 

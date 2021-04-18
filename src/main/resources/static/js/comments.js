@@ -13,7 +13,7 @@ function getComments() {
                         <p class="card-text" style="font-size: 13px">' + data.timestamp + '</p>\
                     </div>\
                 </div>')
-                .appendTo('.comments-container')
+                .prependTo('.comments-container')
         });
     });
 }
@@ -39,13 +39,14 @@ $(document).ready(function(){
             async: false,
             success: function(resp) {
                 document.getElementsByClassName("comments-container")[0].innerHTML = "";
+                document.getElementById("commentContent").value = "";
                 getComments();
             },
             error: function (data) {
-                if(data.status === 204) {
+                if(data.status === 400 || data.status === 204) {
                     alert("Комментарий не может быть пустым");
                 }
-                if(data.status === 403) {
+                else if(data.status === 403) {
                     alert("Недостаточно прав, пожалуйста, войдите в свой аккаунт");
                 }
                 else {
