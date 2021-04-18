@@ -21,11 +21,6 @@ public class ArticleRestController {
     @Autowired
     public ArticleRestController(ArticleService articleService) { this.articleService = articleService; }
 
-//    @GetMapping
-//    public ResponseEntity<List<Article>> getSiteArticles() {
-//        return ResponseEntity.ok(articleService.getAllArticles());
-//    }
-
     @GetMapping
     public ResponseEntity<List<Article>> getSiteArticlesLimit(@RequestParam("offset") int offset,
                                                               @RequestParam("limit") int limit,
