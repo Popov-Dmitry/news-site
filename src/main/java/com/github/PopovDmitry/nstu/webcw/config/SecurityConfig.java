@@ -43,10 +43,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
-//                .formLogin()
-//                .loginPage("/login")
-//                .defaultSuccessUrl("/news")
-//                .and()
                 .apply(jwtConfigurer);
     }
 

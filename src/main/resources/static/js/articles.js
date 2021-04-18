@@ -9,7 +9,6 @@ $.getJSON(url + '/count', function(data, key) {
     articlesCount = data;
 });
 
-// <div class="card-footer text-center">' + data.author.firstName + ' ' + data.author.lastName + ' &nbsp;&nbsp; | &nbsp;&nbsp;' + data.timestamp + '</div>\
 
 function scrollArticles() {
     let $target = $('#show-more-trigger');

@@ -1,6 +1,5 @@
 package com.github.PopovDmitry.nstu.webcw.service;
 
-import com.github.PopovDmitry.nstu.webcw.model.Article;
 import com.github.PopovDmitry.nstu.webcw.model.Comment;
 import com.github.PopovDmitry.nstu.webcw.repository.CommentRepository;
 import com.github.PopovDmitry.nstu.webcw.security.JwtAuthenticationException;

@@ -46,7 +46,7 @@ $(document).ready(function(){
                 if(data.status === 400 || data.status === 204) {
                     alert("Комментарий не может быть пустым");
                 }
-                else if(data.status === 403) {
+                else if(data.status === 403 || data.status === 401) {
                     alert("Недостаточно прав, пожалуйста, войдите в свой аккаунт");
                 }
                 else {

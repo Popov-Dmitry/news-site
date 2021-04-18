@@ -51,7 +51,6 @@ public class ArticleController {
 
     @PreAuthorize("hasAnyAuthority('articles:write')")
     @PostMapping()
-//    public String addArticle(@ModelAttribute("article") @Valid Article article, BindingResult bindingResult) {
     public String addArticle(@RequestBody @Valid ArticleDTO articleDTO,
                              BindingResult bindingResult,
                              HttpServletRequest httpServletRequest) {
