@@ -1,5 +1,6 @@
 package com.github.PopovDmitry.nstu.webcw.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,6 +10,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "articles")
@@ -40,5 +43,9 @@ public class Article {
 
     @Column(name = "views")
     private long views;
+
+    @OneToMany(mappedBy = "article")
+    @JsonBackReference
+    private List<Comment> comments = new ArrayList<>();
 
 }
