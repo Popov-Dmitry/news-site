@@ -203,6 +203,8 @@ $(document).ready(function () {
         "token": localStorage.getItem("token")
     });
 
+    let userRef = 'http://localhost:8080/users/';
+
     $.ajax({
         url: 'http://localhost:8080/dev/api/public/auth',
         type: 'POST',
@@ -217,6 +219,8 @@ $(document).ready(function () {
                 $('#login').hide();
                 $('#user').show();
                 $('#navbarDropdown').html(resp.name);
+                userRef = userRef + resp.id
+                $('#navbarDropdown').attr('href', userRef);
             }
             else {
                 $('#reg').show();
@@ -249,5 +253,9 @@ $(document).ready(function () {
 
         });
     });
+
+    $('#navbarDropdown').click(function () {
+        window.location.replace(userRef);
+    })
 
 })

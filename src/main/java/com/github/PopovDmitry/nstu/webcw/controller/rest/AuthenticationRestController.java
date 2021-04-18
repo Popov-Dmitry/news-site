@@ -89,11 +89,15 @@ public class AuthenticationRestController {
                         jwtTokenProvider.getUsername(jwtTokenDTO.getToken()))
                         .get()
                         .getFirstName());
+                hashtable.put("id", userService.getUser(
+                        jwtTokenProvider.getUsername(jwtTokenDTO.getToken()))
+                        .get().getId());
             }
         }
         catch (JwtAuthenticationException exception) {
             hashtable.put("isValid", false);
             hashtable.put("name", "");
+            hashtable.put("id", "");
         }
 
         return ResponseEntity.ok(hashtable);
