@@ -46,6 +46,6 @@ public class Article {
 
     @OneToMany(mappedBy = "article")
     @JsonBackReference
-    private List<Article> articles = new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
 
 }
