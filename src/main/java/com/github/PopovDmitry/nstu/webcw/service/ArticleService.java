@@ -78,7 +78,7 @@ public class ArticleService {
             }
             case "popularity" -> {
                 logger.info("sortBy {}", sortBy);
-                pageable = PageRequest.of(offset / limit, limit, Sort.by("#?").ascending());
+                pageable = PageRequest.of(offset / limit, limit, Sort.by("views").descending());
             }
             default -> {
                 logger.info("sortBy default");

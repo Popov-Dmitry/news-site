@@ -40,9 +40,7 @@ public class JwtTokenProvider {
     }
 
     @PostConstruct
-    protected void init() {
-        secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
-    }
+    protected void init() { secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes()); }
 
     public String createToken(String username, String role) {
         logger.info("createToken for {}", username);

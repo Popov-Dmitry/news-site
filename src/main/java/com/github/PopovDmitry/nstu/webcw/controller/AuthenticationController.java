@@ -24,9 +24,7 @@ public class AuthenticationController {
     private final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
 
     @Autowired
-    public AuthenticationController(UserService userService) {
-        this.userService = userService;
-    }
+    public AuthenticationController(UserService userService) { this.userService = userService; }
 
     @GetMapping("/auth")
     public String login() {

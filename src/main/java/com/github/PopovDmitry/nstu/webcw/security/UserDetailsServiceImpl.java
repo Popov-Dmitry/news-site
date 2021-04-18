@@ -18,9 +18,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private final Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
 
     @Autowired
-    public UserDetailsServiceImpl(UserService userService) {
-        this.userService = userService;
-    }
+    public UserDetailsServiceImpl(UserService userService) { this.userService = userService; }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

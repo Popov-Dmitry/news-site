@@ -21,9 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtConfigurer jwtConfigurer;
 
     @Autowired
-    public SecurityConfig(JwtConfigurer jwtConfigurer) {
-        this.jwtConfigurer = jwtConfigurer;
-    }
+    public SecurityConfig(JwtConfigurer jwtConfigurer) { this.jwtConfigurer = jwtConfigurer; }
 
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
@@ -58,7 +56,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    protected PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(12);
-    }
+    protected PasswordEncoder passwordEncoder() { return new BCryptPasswordEncoder(12); }
 }

@@ -17,9 +17,7 @@ public class JwtConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilt
     private final Logger logger = LoggerFactory.getLogger(JwtConfigurer.class);
 
     @Autowired
-    public JwtConfigurer(JwtTokenFilter jwtTokenFilter) {
-        this.jwtTokenFilter = jwtTokenFilter;
-    }
+    public JwtConfigurer(JwtTokenFilter jwtTokenFilter) { this.jwtTokenFilter = jwtTokenFilter; }
 
     @Override
     public void configure(HttpSecurity builder) throws Exception {

@@ -12,13 +12,9 @@ public enum Role {
 
     private final Set<Permission> permissions;
 
-    Role(Set<Permission> permissions) {
-        this.permissions = permissions;
-    }
+    Role(Set<Permission> permissions) { this.permissions = permissions; }
 
-    public Set<Permission> getPermissions() {
-        return permissions;
-    }
+    public Set<Permission> getPermissions() { return permissions; }
 
     public Set<SimpleGrantedAuthority> getAuthorities() {
         return permissions.stream()
