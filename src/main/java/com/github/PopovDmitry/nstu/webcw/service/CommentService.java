@@ -4,6 +4,7 @@ import com.github.PopovDmitry.nstu.webcw.model.Comment;
 import com.github.PopovDmitry.nstu.webcw.repository.CommentRepository;
 import com.github.PopovDmitry.nstu.webcw.security.JwtAuthenticationException;
 import com.github.PopovDmitry.nstu.webcw.security.JwtTokenProvider;
+import com.github.PopovDmitry.nstu.webcw.utils.BBParserUtil;
 import javassist.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +44,7 @@ public class CommentService {
             comment.setUser(userService.getUser(
                     jwtTokenProvider.getUsername(
                             jwtTokenProvider.resolveToken(httpServletRequest))).get());
+            comment.setContent(BBParserUtil.parse(comment.getContent()));
             commentRepository.save(comment);
         }
         catch (JwtAuthenticationException exception) {

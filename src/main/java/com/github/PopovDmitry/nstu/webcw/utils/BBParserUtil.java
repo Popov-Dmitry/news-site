@@ -31,6 +31,20 @@ public class BBParserUtil {
 
     public static String parse(String text) {
         char[] chars = text.toCharArray();
+        for (int i = 0; i < chars.length; i++) {
+            if (bbCodes.contains(chars[i]) && i > 0 && i < chars.length - 1 && chars[i - 1] == '[' && chars[i + 1] == ']') {
+                char bbcode = chars[i];
+                for(int j = i; j < chars.length; j++) {
+                    if (chars[j] == bbcode && j > 1 && j < chars.length - 1 && chars[j - 2] == '[' && chars[j - 1] == '/' && chars[j + 1] == ']') {
+                        chars[i - 1] = '<';
+                        chars[i + 1] = '>';
+                        chars[j - 2] = '<';
+                        chars[j + 1] = '>';
+                        break;
+                    }
+                }
+            }
+        }
         String[] strings = String.valueOf(chars).split("[<]([b]|[i]|[u]|[p]|[c])[>][.][<][/]([b]|[i]|[u]|[p]|[c])[>]");
         StringBuilder result = new StringBuilder();
 

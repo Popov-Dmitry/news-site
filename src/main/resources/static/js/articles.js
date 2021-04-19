@@ -1,7 +1,7 @@
 let url = 'http://localhost:8080/dev/api/public/articles';
 let offset = 0;
 let limit = 5;
-let sortBy = 'dateDESC'
+let sortBy = 'popularity'
 let articlesCount = 0;
 let lastScroll = false;
 
