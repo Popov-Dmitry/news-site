@@ -22,7 +22,7 @@
 
 ## Как настроить проект на вашем компьютере
 
-- Установить [JDK 16](https://www.oracle.com/java/technologies/javase/jdk16-archive-downloads.html) и [PostgreSQL](https://www.postgresql.org/) (все необходимые таблицы создадуться при запуске автоматически)
+- Установить [JDK 16](https://www.oracle.com/java/technologies/javase/jdk16-archive-downloads.html) и [PostgreSQL](https://www.postgresql.org/)
 - Клонировать [этот](https://github.com/Popov-Dmitry/news-site) репозиторий
 - В файле `./src/main/resources/application.properties` изменить параметры для доступа к БД:
 - - `spring.datasource.url` - url-адрес подключения к БД
@@ -37,11 +37,11 @@
 - `/news/{id}` - страница просмотра статьи
 - `/news/new` - страница создания статьи
 - `/search` - страница с результатами поиска
-- `/users/{id}` - страница пользователя со всеми написаными им статьями
+- `/users/{id}` - страница пользователя со всеми написанными им статьями
 - `/auth/reg` - страница регистрации
 - `/auth` - страница авторизации
 - `/help/bb_codes` - справка по bb-кодам сайта
-- `/contacts` - справка контактов
+- `/contacts` - страница контактов
 
 Примеры пользовательского интерфейса:
 
